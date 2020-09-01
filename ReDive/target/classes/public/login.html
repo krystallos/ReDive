@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>真步真步真步真....</title>
+		<!--导入jq的js-->
+		<script src="public/dist/lib/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<!--zui样式-->
+		<link rel="stylesheet" type="text/css" href="public/dist/css/zui.min.css" />
+		<!--导入zui的js-->
+		<script src="public/dist/js/zui.js" type="text/javascript" charset="utf-8"></script>
+		<!--背景1样式-->
+		<link rel="stylesheet" type="text/css" href="public/bg/bg.css"/>
+		<!--自定义样式-->
+		<link rel="stylesheet" type="text/css" href="public/dist/css/login.css" />
+		<!-- layui样式 -->
+		<link rel="stylesheet" href="public/layui/css/layui.css">
+		<script src="public/layui/layui.js"></script>
+	</head>
+	<body>
+	<div class="modal fade" id="myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+	        <h4 class="modal-title">您是第一次使用，请输入您所在的工会</h4>
+	      </div>
+	      <div class="modal-body">
+		    <div class="input-control has-icon-left col-xs-6">
+			  <input id="gonhuiid" type="text" onchange="OnInput(event)" class="form-control" placeholder="工会名">
+			</div>
+			<div class="input-group col-xs-6">
+			  <select class="form-control" id="select">
+			    <option value="no">无</option>
+			  </select>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" onclick="baochungonhui()" class="btn btn-primary">保存</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="tishi">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+	        <h4 class="modal-title">还未审批，请将账号发送给会长后等待会长邀请</h4>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<script type="text/javascript">
+	function OnInput(event){
+	$.ajax({
+		url:"chaxungonhui.act",
+		type:'post',
+		dataType:'JSON',
+		data:{gonhuiid:$('#gonhuiid').val()},
+		success:function(msg){
+			html = '';
+			for(var i = 0;i<msg.datas.gonhui.length;i++){
+				var bname = msg.datas.gonhui[i];
+				html += '<option value="'+bname.gId+'">'+bname.gName+'</option>';
+			}
+				$("#select").html(html);
+		},error:function(msg){
+				layui.use('layer', function(){
+				  var layer = layui.layer;
+				  layer.msg('查找工会错误');
+				});
+		}
+	});
+	}
+	
+	function baochungonhui(){
+		$.ajax({
+			url:"baochungonhui.act",
+			type:'post',
+			dataType:'JSON',
+			data:{gonhuiid:$('#select').val(),names:$('#name').val()},
+			success:function(msg){
+				if(msg.id==1){
+					layui.use('layer', function(){
+						var layer = layui.layer;
+						layer.msg(msg.msg,{icon:6,time:1000,end:function(){
+							$('#myModal').modal('hide', 'fit')
+						}});
+					});						
+				}else{
+					layui.use('layer', function(){
+						  var layer = layui.layer;
+						  layer.msg(msg.msg);
+						});
+				}
+			},error:function(msg){
+					layui.use('layer', function(){
+					  var layer = layui.layer;
+					  layer.msg('工会错误');
+					});
+			}
+		});
+	}
+	</script>
+		<div class="stars"></div>  <!--背景层，不要删除，不然没有作用-->
+		<div class="panel" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto; width: 400px; height: 330px;">
+			<ul style="padding-left: 15px;padding-top: 20px">
+				<li>
+					<div class="panel-heading" style="float: left;"><a style="padding-top: 15px;font-size: 18px">账户登入</a></div>
+				</li>
+				<li>
+					<div class="panel-heading" style="float: left;"><a style="padding-top: 15px;font-size: 18px">短信登入</a></div>
+				</li>
+			</ul>
+			<hr>
+			<div class="panel-body">
+			<div class="input-group with-padding" style="width: 100%">
+			  <input type="text" name="name" id="name" maxlength="32"  required lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+			</div>
+			<div class="input-group with-padding" style="width: 100%;float: left">
+<!-- 			  <input type="password" class="form-control" placeholder=""> -->
+			  <input type="password" name="pass" id="pass" maxlength="32"  required lay-verify="required" placeholder="请输入个人密码" autocomplete="off" class="layui-input">
+			<div class="checkbox" style="float: left;height: 15px">
+			  <label>
+			    <input class="checkbox" id="passcheck" type="checkbox">记住密码
+			  </label>
+			</div>
+			</div>
+<!--  			<div class="input-group with-padding" style="padding-top: 10px;width: 72%;float: left;">
+			<div class="layui-input-inline">
+				<input type="text" name="codes" id="codes" maxlength="8"  required lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input">
+			</div>
+			</div> -->
+			<!--  <div class="layui-form-mid layui-word-aux" style="float: right">
+			  	<a href="image.act" onclock='onclick="yanzm()"'><img style="height: 37px" alt="验证码" id="code" class="input-group" src="image.act" onclick="yanzm()"></a>
+			  </div> -->
+<!-- 			</div> -->
+			<div class="input-group with-padding" style="padding-top: 15px;width: 102%">
+				<button class="btn btn-block with-padding" id="logins" type="button">登入</button>
+			</div>
+		</div>
+			<div class="input-group with-padding" style="width: 100%">
+			<a style="padding-right: 5px;padding-left: 15px" href="page.act?page=regist">建立用户</a>
+			<span>|</span>
+			<a style="padding-left: 5px" href="page.act?page=zhaohui">忘记密码?</a>
+			</div>
+		</div>
+		<!--背景1导入的js-->
+		<script type="text/javascript" src="public/bg/bg.js"></script>
+		<!--主页自定义的js-->
+		<script type="text/javascript" src="public/dist/js/login.js"></script>
+	</body>
+	
+	<script>
+	//获取密码
+	$(document).ready(function(){
+        var strName = localStorage.getItem('keyName');
+        var strPass = localStorage.getItem('keyPass');
+        if(strName){
+            $('#name').val(strName);
+        }if(strPass){
+            $('#pass').val(strPass);
+        }
+    });
+	
+	$('input.checkbox').click(function(){
+		if(this.checked==true){			
+			layui.use('layer', function(){
+				  var layer = layui.layer;
+				  layer.msg("请不要在陌生电脑上保存账号密码!");
+			});
+		}
+	});
+	
+	function yanzm(){
+		$("#code").prop("src","image.act");
+	}
+	
+	$('#logins').click(function(){
+		var layer = layui.layer;
+		if($('#name').val()==""){
+			layui.use('layer', function(){
+				  var layer = layui.layer;
+				  layer.msg('请输入账号');
+				});
+			return;
+		}else if($('#pass').val()==""){
+			layui.use('layer', function(){
+				  var layer = layui.layer;
+				  layer.msg('请输入密码');
+				});
+			return;
+		}else if($("#codes").val()==""){
+			layui.use('layer', function(){
+				  var layer = layui.layer;
+				  layer.msg('请输入验证码');
+				});
+			return;
+		}else{
+		var isChecked = $('#passcheck').prop('checked'); 
+		console.log(isChecked);
+		if(isChecked==true){
+			localStorage.setItem('keyName',$('#name').val());
+			localStorage.setItem('keyPass',$('#pass').val());
+		}else{
+			localStorage.setItem('keyName',"");
+			localStorage.setItem('keyPass',"");
+		}
+			$.ajax({
+				url:"login.act",
+				type:'post',
+				dataType:'JSON',
+				data:{uname:$('#name').val(),pass:$('#pass').val()},
+				success:function(msg){
+					if(msg.id==1){
+						layui.use('layer', function(){
+							var layer = layui.layer;
+							layer.msg(msg.msg,{icon:6,time:1000,end:function(){
+								sessionStorage.setItem('userFront',msg.datas.userFront.userUid);//将信息传入
+								sessionStorage.setItem('userName',msg.datas.userFront.userName);//将信息传入
+								sessionStorage.setItem('userRole',msg.datas.userFront.userRole);//将信息传入
+								sessionStorage.setItem('userGonHui',msg.datas.userFront.userGonhui);//将信息传入
+								window.location.href = "page.act?page=" + msg.location +"&Log="+ Math.random();
+							}});
+						});
+					}else if(msg.id==2){
+						layui.use('layer', function(){
+							  var layer = layui.layer;
+							  layer.msg(msg.msg);
+							});
+						return;
+					}else if(msg.id==3){
+						$('#tishi').modal('show', 'fit');
+					}
+				},error:function(msg){
+					layui.use('layer', function(){
+						  var layer = layui.layer;
+						  layer.msg('请联系管理员');
+						});
+				}
+			});
+	}});
+	</script>
+</html>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reDive.front.mapper.BossMapper">
+	<resultMap id="bossmapper" type="reDive.front.bean.PcrBossGonHuiInfo">
+		<id property="bossGonHuiId" column="bossgonhuiid" />
+		<result property="bossId" column="bossid" />
+		<result property="bossName" column="bossname" />
+		<result property="bossNowHp" column="bossnowhp" />
+		<result property="bossAllHp" column="bossallhp" />
+		<result property="bossLv" column="bosslv" />
+		<result property="bossType" column="bosstype" />
+		<result property="bossStart" column="bossstart" />
+		<result property="bossShunXu" column="bossshunxu" />
+		<result property="paiXu" column="paixu" />
+	</resultMap>
+	
+	<select id="selectallboss" resultMap="bossmapper">
+		select * from PCR_BOSS_INFO where 1=1 order by bossid asc
+	</select>
+	
+	<select id="selectBoss" resultMap="bossmapper">
+		select a.bossgonhuiid,a.bossid,b.bossname,a.bossnowhp,a.bossallhp,
+       	b.bosslv,a.bosstype,a.gonhuiid,a.paixu from PCR_BOSSGONHUI_INFO a inner join pcr_boss_info b on a.bossid = b.bossid
+		where bossstart = '启用' and a.gonhuiid = #{gonhui} order by a.paixu asc
+	</select>
+	
+	<select id="selectbosstype" resultType="int">
+		select bosstype from PCR_BOSSGONHUI_INFO 
+			<where>
+				and gonhuiid = #{gonhuiid}
+				<if test="types==1">
+					and bossid = (select max(bossid) from PCR_BOSSGONHUI_INFO) 
+				</if>
+				<if test="types==0">
+					and bossid = (select min(bossid) from PCR_BOSSGONHUI_INFO) 
+				</if>
+			</where>
+	</select>
+	
+	<select id="selectbossid" resultType="int">
+		select min(bossid) as bossid from PCR_BOSSGONHUI_INFO where gonhuiid = #{gonhuiid}
+	</select>
+	
+	<select id="selectnextpaixu" resultType="int">
+		select paixu+1 as paixu from PCR_BOSSGONHUI_INFO where gonhuiid = #{gonhuiid} and bossid = #{bossid}
+	</select>
+	
+	<select id="selectbossidsm" resultType="int">
+		select max(paixu) as paixu from PCR_BOSSGONHUI_INFO where gonhuiid = #{gonhuiid}
+	</select>
+	
+	<update id="updatebosshp">
+		update PCR_BOSSGONHUI_INFO set bossnowhp = bossallhp where gonhuiid = #{gonhuiid}
+	</update>
+	
+	<delete id="delbossxinxi">
+		delete from PCR_BOSSGONHUI_INFO where gonhuiid = #{gonhuiid}
+	</delete>
+	
+	<insert id="insertbossinxi">
+		insert all
+		into PCR_BOSSGONHUI_INFO
+		values(SEQ_PCR_BOSSGONHUI_INFO.NEXTVAL,#{jd1},(select bossallhp from pcr_boss_info where bossid = #{jd1}),(select bossallhp from pcr_boss_info where bossid = #{jd1}),1,#{gonhuiid},1)
+		into PCR_BOSSGONHUI_INFO                                                                                                                                              
+		values(SEQ_PCR_BOSSGONHUI_INFO.NEXTVAL+1,#{jd2},(select bossallhp from pcr_boss_info where bossid = #{jd2}),(select bossallhp from pcr_boss_info where bossid = #{jd2}),0,#{gonhuiid},2)
+		into PCR_BOSSGONHUI_INFO                                                                                                                                              
+		values(SEQ_PCR_BOSSGONHUI_INFO.NEXTVAL+2,#{jd3},(select bossallhp from pcr_boss_info where bossid = #{jd3}),(select bossallhp from pcr_boss_info where bossid = #{jd3}),0,#{gonhuiid},3)
+		into PCR_BOSSGONHUI_INFO                                                                                                                                              
+		values(SEQ_PCR_BOSSGONHUI_INFO.NEXTVAL+3,#{jd4},(select bossallhp from pcr_boss_info where bossid = #{jd4}),(select bossallhp from pcr_boss_info where bossid = #{jd4}),0,#{gonhuiid},4)
+		into PCR_BOSSGONHUI_INFO                                                                                                                                              
+		values(SEQ_PCR_BOSSGONHUI_INFO.NEXTVAL+4,#{jd5},(select bossallhp from pcr_boss_info where bossid = #{jd5}),(select bossallhp from pcr_boss_info where bossid = #{jd5}),0,#{gonhuiid},5)
+		select 'bossid' from dual
+	</insert>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reDive.front.mapper.EmailMapper">
+	<resultMap id="mailmapper" type="reDive.front.bean.PcrMailInfo">
+		<id property="mailId" column="mailid" />
+		<result property="mailName" column="mailname" />
+		<result property="mailUserId" column="mailuserid" />
+		<result property="mailType" column="mailtype" />
+	</resultMap>
+	
+	<select id="selectMail" resultMap="mailmapper">
+		select a.mailid,a.mailname,b.useracctent as mailuserid,a.mailtype 
+		from PCR_MAIL_INFO a inner join pcr_user_info b on a.mailuserid=b.useruid
+		where a.mailname = #{mails}
+	</select>
+
+	<insert id="insertMail">
+		<selectKey order="BEFORE" keyProperty="mailid" resultType="Integer">
+			SELECT seq_PCR_MAIL_INFO.nextval FROM DUAL
+		</selectKey>
+		insert into PCR_MAIL_INFO values(#{mailid},#{mails},#{uid},'启用')
+	</insert>
+
+	<select id="selectMailHas" resultType="Integer">
+		select count(*) from PCR_MAIL_INFO where mailname = #{mails}
+	</select>
+
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reDive.front.mapper.ZhanDouTypeMapper">
+	<resultMap id="zhandoumapper" type="reDive.front.bean.PcrZhandouInfo">
+		<id property="zhanDouId" column="zhandouid" />
+		<result property="zhanDouType" column="zhandoutype" />
+	</resultMap>
+	
+	<select id="selectall" resultMap="zhandoumapper">
+		select * from PCR_ZHANDOU_INFO where 1=1 order by  zhandouid asc
+	</select>
+
+</mapper>

@@ -1,0 +1,176 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.front</groupId>
+  <artifactId>reDive</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  
+ <parent>
+		<!-- 引入springboot的父工程，这样引入之后，之后需要springboot的jar的话，版本不用写， 也是boot的核心包 -->
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.RELEASE</version>
+	</parent>
+
+	<dependencies>
+		<!-- 某些jar配置的版本不用写，因为引用父类的parent标签中的版本信息了 -->
+		<!-- 封装了springmvc的jar文件 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- 热插拔（热启动），如果有修改代码就会自动重启项目工程 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+		   <groupId>net.sourceforge.jexcelapi</groupId>
+		   <artifactId>jxl</artifactId>
+		   <version>2.6.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0.4.0-atlassian-hosted</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.13</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.62</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.5</version>
+		</dependency>
+
+		<!-- 文件上传IO包 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<!-- 文件上传核心包 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<!--邮件发送核心包-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<!-- 短信验证码 -->
+		<!-- fastjosn -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.alibaba</groupId> -->
+<!-- 			<artifactId>fastjson</artifactId> -->
+<!-- 			<version>1.2.4</version> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.zhenzikj</groupId>
+			<artifactId>zhenzisms</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+
+	</dependencies>
+
+	<!-- 导包使用 -->
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<!-- <includes> -->
+				<!-- <include>**/*</include> -->
+				<!-- <include>**/*.properties</include> -->
+				<!-- <include>**/*.yml</include> -->
+				<!-- <include>**/*.xml</include> -->
+				<!-- <include>**/*.tld</include> -->
+				<!-- <include>**/*.html</include> -->
+				<!-- <include>**/*.js</include> -->
+				<!-- <include>**/*.css</include> -->
+				<!-- <include>**/*.jpg</include> -->
+				<!-- </includes> -->
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- 导出的项目所使用的的jdk的版本 -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				
+<configuration>
+<mainClass>reDive.front.Boot</mainClass>
+</configuration>
+<executions>
+<execution>
+<goals>
+<goal>repackage</goal>
+</goals>
+</execution>
+</executions>
+
+				
+			</plugin>
+		</plugins>
+	</build>
+</project>

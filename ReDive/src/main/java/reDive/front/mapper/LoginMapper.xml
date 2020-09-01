@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reDive.front.mapper.LoginMapper">
+	<resultMap id="loginmapper" type="reDive.front.bean.PcrUserInfo">
+		<id property="userUid" column="useruid" />
+		<result property="userPass" column="userpass" />
+		<result property="userName" column="username" />
+		<result property="userState" column="userstate" />
+		<result property="userDate" column="userdate" />
+		<result property="userGonhui" column="usergonhui" />
+		<result property="userAcctent" column="useracctent" />
+		<result property="userRole" column="userrole" />
+	</resultMap>
+	
+	<select id="selectuser" resultMap="loginmapper">
+		select * from PCR_USER_INFO where useracctent = #{uname} and userpass = #{upass} and userState = '启用'
+	</select>
+	
+	<select id="selectchonfu" resultType="int">
+		select count(*) from pcr_user_info where useracctent = #{uuid}
+	</select>
+	
+	<insert id="insertuser">
+		<selectKey order="BEFORE" keyProperty="userfront.userUid" resultType="Integer">
+			SELECT seq_pcr_user_info.nextval FROM DUAL
+		</selectKey>
+		insert into PCR_USER_INFO values(#{userfront.userUid},#{userfront.userPass},#{userfront.userName},'启用',sysdate,'',#{userfront.userAcctent},1)
+	</insert>
+	
+	<update id="updateusergonhui">
+		update PCR_USER_INFO set usergonhui = #{gonhuiid} where useracctent = #{names}
+	</update>
+
+	<update id="updateusergonhuiid">
+		update PCR_USER_INFO set usergonhui = #{gonhuiid} where useruid = #{names}
+	</update>
+	
+	<update id="updatejiesangonhui">
+		update PCR_USER_INFO set usergonhui = #{gonhuisid} where usergonhui = #{gonhuiid}
+	</update>
+	
+	<select id="selectgonhuirenshu" resultType="int">
+		select count(*) from PCR_USER_INFO where userGonhui = #{gonhuiid}
+	</select>
+	
+	<select id="selectuseracctent" resultMap="loginmapper">
+		select useruid,useracctent,username from PCR_USER_INFO where userstate = '启用'
+			<if test="type==1">
+				and usergonhui is null
+			</if>
+			<if test="type==2">
+				and userrole != '3'
+			</if>
+		 and useracctent = #{acctent}
+	</select>
+	
+	<select id="selectusername" resultMap="loginmapper">
+		select useracctent,username from PCR_USER_INFO where userstate = '启用' and usergonhui = #{gonhuiid} and username = #{username}
+	</select>
+	
+	<select id="selectusergonhuiall" resultMap="loginmapper">
+		select useracctent,username from PCR_USER_INFO where userstate = '启用' and usergonhui = #{gonhuiid} and useracctent != #{acctent}
+	</select>
+	
+	<update id="updatenames">
+		update PCR_USER_INFO set username = #{usernames} where useruid = #{useruid} and userstate = '启用'
+	</update>
+	
+	<select id="selectalluser" resultMap="loginmapper">
+		select useruid,username from PCR_USER_INFO where userstate = '启用' and usergonhui = #{gonhuiid} and useruid != #{useruid}
+	</select>
+	
+	<update id="updatepass">
+		update PCR_USER_INFO set userpass = #{pass} where useruid = #{uid}
+	</update>
+
+	<select id="selectListAdmin" resultMap="loginmapper">
+		select a.useruid as useruid,a.username as username,b.gname as usergonhui,a.usergonhui as userstate,a.useracctent as useracctent,a.userrole as userrole
+		from PCR_USER_INFO a
+		inner join PCR_GONHUI_INFO b on a.usergonhui = b.gid
+		where a.userrole = '2'
+		and a.userstate = '启用'
+		order by a.useruid asc
+	</select>
+
+	<select id="selectListAdminPage" resultType="int">
+		select count(*) from PCR_USER_INFO where userrole = '2'
+	</select>
+
+	<update id="updatepasss">
+		update PCR_USER_INFO set userpass = #{pass} where useruid = #{uid}
+	</update>
+
+	<select id="gonhuiuser" resultMap="loginmapper">
+		select b.gname as usergonhui from pcr_user_info a inner join pcr_gonhui_info b on a.usergonhui = b.gid where a.useruid = #{usergonhui}
+	</select>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reDive.front.mapper.GonHuiMapper">
+	<resultMap id="gonhuimapper" type="reDive.front.bean.PcrGonHuiInfo">
+		<id property="gId" column="gid" />
+		<result property="gName" column="gname" />
+		<result property="gBoss" column="gboss" />
+		<result property="gRenShu" column="grenshu" />
+	</resultMap>
+	
+	<select id="selectGonhui" resultMap="gonhuimapper">
+		select a.gid,a.gname,b.username,a.grenshu 
+		from PCR_GONHUI_INFO a 
+		inner join pcr_user_info b on a.gboss = b.useruid where a.gname like CONCAT('%',CONCAT(#{gonhuiName},'%'))
+	</select>
+	
+	<insert id="insertGonhui">
+		<selectKey order="BEFORE" keyProperty="gonhui.gId" resultType="Integer">
+			SELECT SEQ_PCR_GONHUI_INFO.nextval FROM DUAL
+		</selectKey>
+			INSERT INTO PCR_GONHUI_INFO VALUES(#{gonhui.gId},#{gonhui.gName},#{gonhui.gBoss},30)
+	</insert>
+	
+	<delete id="delGonhui">
+		delete from PCR_GONHUI_INFO where gid = #{gonhuiid}
+	</delete>
+
+	<select id="selectCountAdmin" resultType="int">
+		select count(*) from PCR_USER_INFO where userrole = '2' and usergonhui = #{gonhuiid}
+	</select>
+
+	<update id="updateAdminUser">
+		<if test="type==1">
+			update PCR_USER_INFO set userrole = '1' where useruid = #{uid} and usergonhui = #{gonhuiid}
+		</if>
+		<if test="type==2">
+			update PCR_USER_INFO set userrole = '2' where useruid = #{uid}
+		</if>
+	</update>
+</mapper>

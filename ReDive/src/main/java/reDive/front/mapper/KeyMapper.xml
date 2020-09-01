@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reDive.front.mapper.KeyMapper">
+	<resultMap id="keymapper" type="reDive.front.bean.PcrMd5Info">
+		<id property="keyId" column="keyid" />
+		<result property="keyName" column="keyname" />
+		<result property="keyRole" column="keyrole" />
+		<result property="keyUser" column="keyuser" />
+	</resultMap>
+	
+	<insert id="insertKeyPass">
+		<selectKey order="BEFORE" keyProperty="md5key.keyId" resultType="Integer">
+			SELECT seq_PCR_MD5_INFO.nextval FROM DUAL
+		</selectKey>
+		insert into PCR_MD5_INFO values(#{md5key.keyId},#{md5key.keyName},'启用',#{md5key.keyUser})
+	</insert>
+	
+</mapper>

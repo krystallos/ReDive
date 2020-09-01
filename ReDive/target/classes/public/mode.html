@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta charset="utf-8" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>人才生态圈</title>
+<link href="public/dist/css/zui.min.css" rel="stylesheet" type="text/css"/>
+<link href="public/dist/lib/datetimepicker/datetimepicker.min.css" rel="stylesheet">
+<script src="public/dist/lib/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="public/dist/js/zui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="public/dist/lib/datetimepicker/datetimepicker.min.js"></script>
+<link href="public/dist/lib/datatable/zui.datatable.min.css" rel="stylesheet">
+<script src="public/dist/lib/datatable/zui.datatable.min.js"></script>
+<script>var _clientIP='::ffff:10.110.10.34'</script>
+<!-- layui样式 -->
+<link rel="stylesheet" href="public/layui/css/layui.css">
+<script src="public/layui/layui.js"></script>
+
+<style>
+	.typeimg{
+		width: 100%;
+		float: left;
+		padding-left: 1%;
+		/* margin-top: 160px; */
+	}
+</style>
+<script>
+(function(a,e,f,g,b,c,d){a.ZhaoPinBigdataAnalyticsObject=b;a[b]=a[b]
+||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;
+(window,document,"script",document.location.protocol+
+"//statistic.zhaopin.cn/sdk/zhaopin_tracker.js","za");
+za("creat", "A23"); 
+za("track",{uid: "1025949344",appid:'A23',evtid:'pageopen',pagecode:4018},{experid:'pc415'})
+</script>
+<script>
+var zpStatConfig = {
+  page: {
+    appid: 'A23',
+    pagecode:4018
+  }
+}
+</script>
+<style type="text/css">
+	.risk-warning{
+		z-index:10001 !important
+	}
+	.risk-warning__content{
+		background-image:url();
+		-webkit-box-shadow:2px 2px 4px 0 rgba(166,172,184,0.2);
+		box-shadow:2px 2px 4px 0 rgba(166,172,184,0.2);
+		border-radius:2px;width:470px;height:377px
+	}
+	.risk-warning__content button{
+		position:absolute;bottom:0;width:100%;height:60px;background:transparent
+	}
+</style>
+<style type="text/css">
+	.privacy-protocol-update__modal{
+		z-index:10002 !important;
+	}
+	.privacy-protocol-update{
+		width:600px;
+		background:#ffffff;
+		-webkit-box-shadow:2px 2px 4px 0 rgba(166,172,184,0.2);
+		box-shadow:2px 2px 4px 0 rgba(166,172,184,0.2);border-radius:2px
+	}
+	.privacy-protocol-update__title{
+		line-height:64px;background:rgba(23,135,251,0.06);
+		-webkit-box-shadow:2px 2px 4px 0 rgba(166,172,184,0.2);
+		box-shadow:2px 2px 4px 0 rgba(166,172,184,0.2);
+		border-radius:2px 2px 0 0;
+		font-size:24px;
+		color:#555555;
+		text-align:center;
+	}
+	.privacy-protocol-update__content{
+		padding:30px 40px 0 !important;
+		color:#555555
+	}
+	.privacy-protocol-update__confirm{
+		text-align:center;
+		padding:40px 0 30px !important
+	}
+	.privacy-protocol-update__confirm button{
+		width:116px;
+		height:32px;
+		padding:0 !important;
+		margin-left:12px
+	}
+</style>
+<style type="text/css">:root {
+  --white-color: #fff;
+  --black-color: #000;
+  --red-color: #e95a3f;
+  --blue-color: #1787fb;
+  --blue-color--dark: #1479e1;
+  --blue-color--light: #e7f3fe;
+  --text-color--primary: #333;
+  --text-color--regular: #666;
+  --text-color--secondary: #999;
+  --text-color--placeholder: #ccc;
+  --input-border-color: #dcdee2;
+  --input-border-color--error: var(--red-color);
+  --input-background-color: var(--white-color);
+  --input-background-color--disabled: #f7f8f9;
+  --default-font-size--small: 12px;
+  --default-font-size: 14px;
+  --default-font-size--small: 12px;
+  --default-font-size--large: 16px;
+  --default-padding--vertical: 10px;
+  --default-padding--horizontal: 20px;
+  --border-radius: 4px;
+  --transition-duration: 0.1s;
+  --z-index-level1: 100;
+  --z-index-level2: 200;
+  --z-index-level3: 300;
+  --z-index-level4: 400;
+  --z-index-level5: 500;
+  --z-index-level6: 600;
+  --z-index-level7: 700;
+  --z-index-level8: 800;
+  --z-index-level9: 900;
+  --z-index-level10: 1000;
+}
+</style>
+<style type="text/css">/** @define a-toast; weak */
+.a-toast {
+  background-color: #fff;
+  border-left: solid 4px #fff;
+  border-radius: var(--border-radius);
+  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  overflow: hidden;
+  padding: var(--default-padding--vertical) 26px;
+  position: fixed;
+  -webkit-transition: opacity 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s, -webkit-transform 0.3s;
+  -o-transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
+  transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s;
+  transition: opacity 0.3s, transform 0.3s, left 0.3s, right 0.3s, top 0.4s, bottom 0.3s, -webkit-transform 0.3s;
+  width: 320px;
+
+  &.a--right {
+    right: 16px;
+  }
+
+  &.a--left {
+    left: 16px;
+  }
+
+  &.a--center {
+    left: -webkit-calc(50% - 160px);
+    left: calc(50% - 160px);
+  }
+}
+
+.a-toast__title {
+  color: var(--blue-color);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.a-toast__content {
+  color: #495060;
+  font-size: var(--default-font-size);
+  line-height: 1.5;
+  margin-top: 2px;
+  text-align: justify;
+}
+
+.a-toast__close-button {
+  color: #999;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 100;
+  line-height: 1;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  -webkit-transition: color 0.2s ease;
+  -o-transition: color 0.2s ease;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--blue-color--dark);
+  }
+}
+
+.a-toast--transition-enter {
+  &.a--right {
+    right: 0;
+    -webkit-transform: translateX(100%);
+        -ms-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+
+  &.a--left {
+    left: 0;
+    -webkit-transform: translateX(-100%);
+        -ms-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+
+  &.a--center {
+    top: 0;
+    -webkit-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+
+.a-toast--transition-leave-active {
+  opacity: 0;
+}
+</style>
+<style type="text/css">
+	.top-banner{
+		height:40px;
+		width:100%;
+		background:url() no-repeat 50%;
+		background-size:auto 40px;
+		position:relative
+	}
+	.top-banner__modal .a-modal__content{
+		top:42%
+	}
+	.top-banner__comment{
+		width:125px;
+		height:40px;
+		position:absolute;
+		top:0;
+		left:50%;
+		margin-left:358px;
+		background:none;
+		border:none
+	}
+	.top-banner__close{
+		position:absolute;
+		top:-3px;
+		right:16px;
+		background:none;
+		color:#ccc;
+		font-size:20px;
+		-webkit-transform:rotate(45deg);
+		-ms-transform:rotate(45deg);
+		transform:rotate(45deg);
+		padding:0 5px;border:none
+	}.top-banner button:focus{
+		outline:none
+	}.a-toast{
+		width:auto;
+		padding:15px 20px 15px 45px;
+		text-align:center;
+		z-index:300;
+	}.a-toast .a-toast__content{
+		font-size:14px
+	}.a--warning{
+		border:1px solid #f90;
+		-webkit-box-shadow:0 4px 12px 0 rgba(255,153,0,0.15);
+		box-shadow:0 4px 12px 0 rgba(255,153,0,0.15);
+		background:#fff4e5 url() no-repeat 15px center;
+		background-size:18px;
+		left:-webkit-calc(50% - 63px);
+		left:calc(50% - 63px)
+	}
+	.a--warning .a-toast__content{
+		color:#ea8c00
+	}
+	.a--success{
+		border:1px solid #17be6b;
+		-webkit-box-shadow:0 4px 12px 0 rgba(23,190,107,0.15);
+		box-shadow:0 4px 12px 0 rgba(23,190,107,0.15);
+		background:#e5fff2 url() no-repeat 15px center;
+		background-size:18px;
+		left:-webkit-calc(50% - 110px);
+		left:calc(50% - 110px)
+	}
+	.a--success .a-toast__content{
+		color:#17be6b
+	}
+	.tags{
+		width:880px
+	}
+	.tags__company{
+		width:100%;
+		height:92px;
+		font-size:24px;
+		color:#333;
+		text-align:center;
+		line-height:114px;
+		border-bottom:1px solid #e8eaec;
+		background:url() no-repeat 36px 0;
+		background-size:53px;
+		font-weight:bold;
+		overflow:hidden
+	}
+	.tags__tag{
+		padding:24px 0 0 36px;
+		height:270px;
+		overflow-x:hidden
+	}
+	.tags__tag .a-checkbox{
+		width:16.6%;
+		margin-bottom:32px;
+		font-size:14px
+	}
+	.tags__tag .a-checkbox__mark{
+		margin-right:5px;
+		width:18px;
+		height:18px;
+		vertical-align:sub
+	}.tags__tag .a--selected{
+		color:#1787fb
+	}.tags__submit{
+		width:100%;
+		height:72px;
+		padding-top:8px;
+		text-align:center
+	}.tags__submit .a-button{
+		width:116px
+	}.tags__select{
+		font-size:12px;
+		color:#333;
+		margin-bottom:28px
+	}.tags__select span{
+		color:#999
+	}.continue-comment{
+		padding:24px 36px;
+		width:450px;
+		text-align:center;
+		line-height:30px
+	}.continue-comment h4{
+		font-size:16px;
+		margin:20px 0 15px;
+		font-weight:bold
+	}.continue-comment p{
+		margin-bottom:30px
+	}
+
+</style>
+</head>
+
+<body>
+	
+<div class="zp" id="root">
+	<!--标签头-->
+	<div class="zp-header clearfix" id="rightNav_top">
+	</div>
+	</div>
+	<!--顶部功能栏-->
+	<div class="zp-main" style="z-index: 1;text-align: center;">
+					<!-- <div class="zp-main__channel">
+						<ul class="zp-container zp-nav__channel clearfix">
+							<li class="zp-nav__channel--item zp-nav__common--li">
+								<a class="zp-nav__channel--link" href="" target="_blank">
+									<span class="zp-nav__channel--name">
+										测试功能
+									</span>
+								</a>
+							</li>
+						<li class="zp-nav__channel--item zp-nav__common--li">
+							<a class="zp-nav__channel--link" href="">
+								<span class="zp-nav__channel--name">
+									测试功能
+								</span>
+							</a>
+						</li>
+						<li class="zp-nav__channel--item zp-nav__common--li">
+							<a class="zp-nav__channel--link" href="">
+								<span class="zp-nav__channel--name">
+									测试功能
+								</span>
+							</a>
+						</li>
+						<li class="zp-nav__channel--item zp-nav__common--li">
+							<a class="zp-nav__channel--link" href="">
+								<span class="zp-nav__channel--name">
+									测试功能
+								</span>
+							</a>
+						</li>
+						</ul>
+					</div> -->
+					<div class="zp-container zp-main__container clearfix">
+						<!--滚动广告-->
+						<div class="typeimg">
+							<div id="myNiceCarousel" class="carousel slide" data-ride="carousel">
+							  <ol class="carousel-indicators">
+							    <li data-target="#myNiceCarousel" data-slide-to="0" class="active"></li>
+							    <li data-target="#myNiceCarousel" data-slide-to="1"></li>
+							  </ol>
+							  <div class="carousel-inner" style="height: 410px;">
+							    <div class="item active">
+							      <img style="display:block; margin:0 auto;" id="First" alt="First slide" src="public/img/m1.jpg">
+							    </div>
+							    <div class="item">
+							      <img style="display:block; margin:0 auto;" id="Second" alt="Second slide" src="public/img/registmiss.jpg">
+							    </div>
+							  </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<script type="text/javascript">
+				$(document).ready(function(){
+					$.ajax({
+						url : 'img.act',
+						type : 'POST',
+						dataType : 'JSON',
+						success : function(msg) {
+							document.getElementById('First').src = msg.datas.img[0].imgUrl + msg.datas.img[0].imgName;
+							document.getElementById('Second').src = msg.datas.img[1].imgUrl + msg.datas.img[1].imgName;
+						},
+						error : function(msg) {
+						}
+					});
+				});
+				</script>
+<!-- 		</div> -->
+	<!--尾标-->
+	<hr>
+		<div style="padding-left: 10%;float: left;">
+			<dt style="font-size: 30px;">关于我们</dt>
+			<dd style="padding-top: 20px;"><a href="">联系我们</a></dd>
+		</div>
+		<div style="padding-left: 10%;float: left;">
+			<dt style="font-size: 30px;">使用与帮助</dt>
+			<dd style="padding-top: 20px;"><a href="">账号注销</a></dd>
+		</div>
+<!-- <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?38ba284938d5eddca645bb5e02a02006";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script> -->
+<!-- <script src="//restapi.amap.com/v3/ip?key=6a7665aa7301eae686d9e79884d0445b&amp;s=rsv3&amp;callback=jsonp_880055&amp;platform=JS&amp;logversion=2.0&amp;appname=https://i.zhaopin.com/&amp;csid=E287E0C2-3E86-49A3-8218-106E15DE2C2E&amp;sdkversion=1.4.6"></script>
+-->
+</body>
+</html>

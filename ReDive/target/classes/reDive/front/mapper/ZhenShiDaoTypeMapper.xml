@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reDive.front.mapper.ZhenShiDaoTypeMapper">
+	<resultMap id="zhenshidaotypemapper" type="reDive.front.bean.PcrZhenShiDaoTypeInfo">
+		<id property="zhenShiDaoTypeId" column="zhenshidaotypeid" />
+		<result property="zhenShiDaoOne" column="zhenshidaoone" />
+		<result property="zhenShiDaoTwo" column="zhenshidaotwo" />
+		<result property="zhenShiDaoThree" column="zhenshidaothree" />
+		<result property="zhenShiDaoFour" column="zhenshidaofour" />
+		<result property="zhenShiDaoFive" column="zhenshidaofive" />
+		<result property="zhenShiDaoUid" column="zhenshidaouid" />
+		<result property="zhenShiDuiWuName" column="zhenshiduiwuname" />
+	</resultMap>
+	
+	<select id="selectuserpsolook" resultMap="zhenshidaotypemapper">
+		select a.zhenshidaotypeid,b.personico as zhenshidaoone,c.personico as zhenshidaotwo,
+		d.personico as zhenshidaothree,e.personico as zhenshidaofour,f.personico as zhenshidaofive,
+		a.zhenshidaouid,a.zhenshiduiwuname
+		from PCR_ZHENSHIDAOTYPE_INFO a 
+		left join pcr_person_info b on a.zhenshidaoone = b.personid 
+		left join pcr_person_info c on a.zhenshidaotwo = c.personid
+		left join pcr_person_info d on a.zhenshidaothree = d.personid
+		left join pcr_person_info e on a.zhenshidaofour = e.personid
+		left join pcr_person_info f on a.zhenshidaofive = f.personid
+		where zhenshidaouid = #{uid} order by a.zhenshidaotypeid asc
+	</select>
+	
+	<select id="selectuserpsolookname" resultMap="zhenshidaotypemapper">
+		select a.zhenshidaotypeid,b.personname as zhenshidaoone,c.personname as zhenshidaotwo,
+		d.personname as zhenshidaothree,e.personname as zhenshidaofour,f.personname as zhenshidaofive,
+		a.zhenshidaouid,a.zhenshiduiwuname
+		from PCR_ZHENSHIDAOTYPE_INFO a 
+		left join pcr_person_info b on a.zhenshidaoone = b.personid 
+		left join pcr_person_info c on a.zhenshidaotwo = c.personid
+		left join pcr_person_info d on a.zhenshidaothree = d.personid
+		left join pcr_person_info e on a.zhenshidaofour = e.personid
+		left join pcr_person_info f on a.zhenshidaofive = f.personid
+		where zhenshidaouid = #{uid} order by a.zhenshidaotypeid asc
+	</select>
+	
+	<insert id="insertdaotype">
+		<selectKey order="BEFORE" keyProperty="zhenshidaotypeid" resultType="Integer">
+			SELECT SEQ_PCR_ZHENSHIDAOTYPE_INFO.nextval FROM DUAL
+		</selectKey>
+		insert into PCR_ZHENSHIDAOTYPE_INFO values(#{zhenshidaotypeid},#{one},#{two},#{three},#{four},#{five},#{uid},'新队伍')
+	</insert>
+	
+	<select id="selectalltonji" resultType="Integer">
+		select count(zhenshidaotypeid) from PCR_ZHENSHIDAOTYPE_INFO where zhenshidaouid = #{uid}
+	</select>
+	
+	<update id="updateduiwuname">
+		update PCR_ZHENSHIDAOTYPE_INFO set zhenshiduiwuname = #{duiwuname} where zhenshidaotypeid = #{duiwuid} and zhenshidaouid = #{uid}
+	</update>
+	
+	<delete id="delduiwu">
+		delete PCR_ZHENSHIDAOTYPE_INFO
+		<where>
+			<if test="duiwuid!=-1">
+				and zhenshidaotypeid = #{duiwuid}
+			</if>
+			and zhenshidaouid = #{uid}
+		</where>
+	</delete>
+	
+</mapper>
