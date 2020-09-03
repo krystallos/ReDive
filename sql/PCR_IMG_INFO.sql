@@ -1,0 +1,2 @@
+INSERT INTO "PCR_IMG_INFO"("IMGID", "IMGNAME", "IMGURL") VALUES ('1', 'm1.jpg', '/file/');
+INSERT INTO "PCR_IMG_INFO"("IMGID", "IMGNAME", "IMGURL") VALUES ('2', 'm2.jpg', '/file/');
